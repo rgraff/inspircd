@@ -176,7 +176,7 @@ class ModuleChanHistory
 			ClientProtocol::MessageTagProvider* const tagprov = static_cast<ClientProtocol::MessageTagProvider*>(*i);
 			const ModResult res = tagprov->OnProcessTag(ServerInstance->FakeClient, tagkey, tagval);
 			ServerInstance->Logs->Log(MODNAME, LOG_DEBUG, "TAG ADDED");
-
+dkdjkdfj
 				msg.AddTag(tagkey, tagprov, tagval);
 		}
 	}
