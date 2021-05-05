@@ -171,10 +171,7 @@ class ModuleChanHistory
 		{
 			ClientProtocol::MessageTagProvider* const tagprov = static_cast<ClientProtocol::MessageTagProvider*>(*i);
 			const ModResult res = tagprov->OnProcessTag(ServerInstance->FakeClient, tagkey, tagval);
-			if (res == MOD_RES_ALLOW)
 				msg.AddTag(tagkey, tagprov, tagval);
-			else if (res == MOD_RES_DENY)
-				break;
 		}
 	}
 
