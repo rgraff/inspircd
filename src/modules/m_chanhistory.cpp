@@ -44,9 +44,13 @@ struct HistoryItem
 		, type(details.type)
 		, sourcemask(source->GetFullHost())
 	{
+		ServerInstance->Logs->Log(MODNAME, LOG_DEBUG, "HISTORY ITEM");
 		tags.reserve(details.tags_out.size());
 		for (ClientProtocol::TagMap::const_iterator iter = details.tags_out.begin(); iter != details.tags_out.end(); ++iter)
+		{
+			ServerInstance->Logs->Log(MODNAME, LOG_DEBUG, "TAG IN HISTORY ITEM");
 			tags[iter->first] = iter->second.value;
+		}
 	}
 };
 
@@ -171,6 +175,8 @@ class ModuleChanHistory
 		{
 			ClientProtocol::MessageTagProvider* const tagprov = static_cast<ClientProtocol::MessageTagProvider*>(*i);
 			const ModResult res = tagprov->OnProcessTag(ServerInstance->FakeClient, tagkey, tagval);
+			ServerInstance->Logs->Log(MODNAME, LOG_DEBUG, "TAG ADDED");
+
 				msg.AddTag(tagkey, tagprov, tagval);
 		}
 	}
@@ -192,6 +198,7 @@ class ModuleChanHistory
 			if (servertimemanager)
 				servertimemanager->Set(msg, item.ts);
 			batch.AddToBatch(msg);
+			ServerInstance->Logs->Log(MODNAME, LOG_DEBUG, "SENDING HISTORY");
 			user->Send(ServerInstance->GetRFCEvents().privmsg, msg);
 		}
 
